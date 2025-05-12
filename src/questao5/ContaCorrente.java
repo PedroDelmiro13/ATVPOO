@@ -1,15 +1,20 @@
 package src.questao5;
 
-public class ContaCorrente extends Conta{
-    public ContaCorrente(String titular, double saldo){
+public class ContaCorrente extends Conta {
+    private static final double TAXA_SAQUE = 0.10;
+    public ContaCorrente(String titular, double saldo) {
         super(titular, saldo);
     }
     @Override
-    public void sacar(double valor){
-        if(valor > getSaldo() || valor <= 0){
-            throw new RuntimeException("Valor inválido");
+    public double sacar(double valor) {
+        double valorTotal = valor * (1 + TAXA_SAQUE);
+        if (valor > 0 && valorTotal <= getSaldo()) {
+            setSaldo(getSaldo() - valorTotal);
+            System.out.println("Saque de R$" + valor + " realizado com sucesso na conta corrente de " + getTitular() + " (taxa de 10%: R$" + (valor * TAXA_SAQUE) + "). Novo saldo: R$" + getSaldo());
+            return valor;
+        } else {
+            System.out.println("Erro ao sacar na conta corrente de " + getTitular() + ": saldo insuficiente ou valor inválido (incluindo taxa).");
+            return 0;
         }
-        double novoValor = getSaldo() - (valor * 0.5);
-        setSaldo(novoValor);
     }
 }

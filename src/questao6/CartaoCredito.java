@@ -4,6 +4,7 @@ public class CartaoCredito extends MetodoPagamento{
     public CartaoCredito(double taxa){
         super(taxa);
     }
+
     @Override
     public boolean processarPagamento(double valor){
         if (valor < 0){
