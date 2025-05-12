@@ -7,8 +7,10 @@ public class SistemaPagamento {
             throw new RuntimeException("Valor invalido");
         }
 
-        metodo.processarPagamento(valor);
-        metodo.getTaxa();
-        return true;
+        boolean sucesso = metodo.processarPagamento(valor);
+        if (sucesso) {
+            System.out.println(metodo.calcularTaxa(valor));
+        }
+        return sucesso;
     }
 }
